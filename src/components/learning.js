@@ -16,6 +16,23 @@ the same as that of change make */}
 
             {/* In onSubmitMovie function in App.js
             we add a user id  */}
+            { // The above thing will let the db enter the id of the logged in user
+                //Next we will make changes in firestore rules section so to allow only the same logged in user to make changes in the title
+            }
+
+            { //Rules for only allowing delete and update only if user is logged in 
+            }
+            {/*     rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow create: if request.auth!=null && request.auth.uid == request.resource.data.userId;
+      allow delete,update: if request.auth!=null;
+      allow read: if true;
+    }
+  }
+}*/}
         </>
     )
 }
