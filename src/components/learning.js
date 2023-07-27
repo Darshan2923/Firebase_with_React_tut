@@ -33,6 +33,30 @@ service cloud.firestore {
     }
   }
 }*/}
+
+
+
+
+
+            {/* FireBase Storage-
+Firebases not only stores databases but can also be used to store files and images...
+
+It is a cloud storage bucket
+
+
+//I'll first configure it in firebase-config.js to connect it with our app and change its rules to true so it can accept all to store the images and files...
+
+
+//Chcekout firebase-config.js for setup and ill add an functionality in 
+
+
+//////////////////////////////////////
+App.js to select a file and a button to upload it in the cloud
+
+
+
+
+*/}
         </>
     )
 }
