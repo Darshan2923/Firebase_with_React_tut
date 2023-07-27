@@ -11,7 +11,6 @@ function Auth() {
     // ? mark for existing baar baar rerender naa ho nai toh console me error aayega
     const signIn = async () => {
         try {
-
             await createUserWithEmailAndPassword(auth, email, password);
         } catch (error) {
             console.log(error);
@@ -49,5 +48,7 @@ function Auth() {
         </section>
     )
 }
+// Firebase db is made in App.js to avoid any clutter
+//and display the list of movies in db onto the screen
 
 export default Auth
