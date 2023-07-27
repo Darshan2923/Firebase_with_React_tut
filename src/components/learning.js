@@ -62,6 +62,12 @@ To learn more about the management of files from bucket and showing that things 
 
 
 
+
+
+// Hosting our website using firebase
+Go on to firebase.console>Build>Hosting and do the required steps...
+
+Not able to due to an error...will surely do it on when i make a full fledged app.ThankYou!!!!!
 */}
         </>
     )
