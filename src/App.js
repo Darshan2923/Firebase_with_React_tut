@@ -3,7 +3,7 @@ import './App.css';
 import Auth from './components/auth';
 // import Register from './components/Register';
 import { db } from './config/firebase-config';
-import { getDocs, collection, addDoc, deleteDoc, doc } from 'firebase/firestore';
+import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
 function App() {
   const [movieList, setMovieList] = useState([])
@@ -69,6 +69,14 @@ function App() {
     getMovieList();
   };
 
+  //Update Movie title
+  const [updatedTitle, setUpdatedTitle] = useState('')
+  const updateTitle = async (id) => {
+    const movieDoc = doc(db, "movies", id)
+    await updateDoc(movieDoc, { name: updatedTitle });
+    getMovieList();
+  };
+
   return (
     <div className="appContainer">
       <h1>Firebase course</h1>
@@ -103,7 +111,12 @@ function App() {
             <div>
               <h1 style={{ color: movie.hit ? "green" : "red" }}>{movie.name}</h1>
               <p>Date:{movie.release}</p>
-              <button onClick={() => deleteMovie(movie.id)/*if were passing a function on onclick we need to make it a arrow function*/}>Delete Movie</button>
+              <button onClick={() => deleteMovie(movie.id)/*if were passing a function on onclick we need to make it a arrow function*/}>Delete Movie</button><br />
+
+              {/* Updating the movie */}
+              <input type="text" placeholder='Change title...'
+                onChange={(e) => setUpdatedTitle(e.target.value)} />
+              <button onClick={() => updateTitle(movie.id)}>Update Title</button>
             </div>
           );
         })}
