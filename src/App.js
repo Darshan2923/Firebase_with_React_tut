@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Auth from './components/auth';
 // import Register from './components/Register';
-import { db } from './config/firebase-config';
+import { db, auth } from './config/firebase-config';
 import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import Learning from './components/learning';
 
@@ -49,7 +49,24 @@ function App() {
       await addDoc(moviesCollectionRef, {
         name: newMovie,
         release: newRelease,
-        hit: isHit
+        hit: isHit,
+        userId: auth?.currentUser?.uid
+        // The above thing will let the db enter the id of the logged in user
+        //Next we will make changes in firestore rules section so to allow only the same logged in user to make changes in the title
+
+
+        //Rules for only allowing delete and update only if user is logged in
+        /*     rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow create: if request.auth!=null && request.auth.uid == request.resource.data.userId;
+      allow delete,update: if request.auth!=null;
+      allow read: if true;
+    }
+  }
+}*/
       })
     }
     catch (error) {
