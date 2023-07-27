@@ -3,13 +3,16 @@ import './App.css';
 import Auth from './components/auth';
 // import Register from './components/Register';
 import { db } from './config/firebase-config';
-import { getDocs, collection, addDoc } from 'firebase/firestore';
+import { getDocs, collection, addDoc, deleteDoc, doc } from 'firebase/firestore';
 
 function App() {
   const [movieList, setMovieList] = useState([])
 
   const moviesCollectionRef = collection(db, "movies");
+
+
   //Read and show from db to screen
+
   //This will give an error cause we'll need to set  rules 
 
   const getMovieList = async () => {
@@ -32,6 +35,7 @@ function App() {
   useEffect(() => {
     getMovieList();
   }, []);
+
 
   //Adding new Movies into db and screen
   const [newMovie, setNewMovie] = useState("")
@@ -57,6 +61,13 @@ function App() {
   };
   //Problem arises when we want to see on the screen but it will only display in db so for that we'll do one thing in useEffect...
 
+
+  //Delete operation in this 
+  const deleteMovie = async (id) => {
+    const movieDoc = doc(db, "movies", id)
+    await deleteDoc(movieDoc);
+    getMovieList();
+  };
 
   return (
     <div className="appContainer">
@@ -92,6 +103,7 @@ function App() {
             <div>
               <h1 style={{ color: movie.hit ? "green" : "red" }}>{movie.name}</h1>
               <p>Date:{movie.release}</p>
+              <button onClick={() => deleteMovie(movie.id)/*if were passing a function on onclick we need to make it a arrow function*/}>Delete Movie</button>
             </div>
           );
         })}
