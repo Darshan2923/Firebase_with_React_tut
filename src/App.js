@@ -4,6 +4,7 @@ import Auth from './components/auth';
 // import Register from './components/Register';
 import { db } from './config/firebase-config';
 import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import Learning from './components/learning';
 
 function App() {
   const [movieList, setMovieList] = useState([])
@@ -80,15 +81,15 @@ function App() {
   return (
     <div className="appContainer">
       <h1>Firebase course</h1>
-
+      <Auth />
+      <Learning />
+      {/* So i gone to firebase website and do the registration and all things done there
+      and then hit npm install firebase over here
+      , copy paste cli and setup auth  */}
       {/* Will be configuring Firebase DB operations over here */}
 
 
 
-      {/* So i gone to firebase website and do the registration and all things done there
-      and then hit npm install firebase over here
-      , copy paste cli and setup auth  */}
-      <Auth />
 
       {/* Setnew movies      */}
       <div style={{ marginTop: "90px" }}>
