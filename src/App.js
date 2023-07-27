@@ -12,24 +12,24 @@ function App() {
   //Read and show from db to screen
   //This will give an error cause we'll need to set  rules 
 
+  const getMovieList = async () => {
+    //READ DATA FROM DB
+    try {
+      const data = await getDocs(moviesCollectionRef);
+      const filteredData = data.docs.map((doc) => {
+        return ({ ...doc.data(), id: doc.id });
+      })
+      //SHOW THE MOVIE LIST
+      setMovieList(filteredData);
+
+      //console.log(filteredData); //gets you your filtered Data
+      //console.log(data); //gets you an object of all the confucing stuff related to data to asked for
+    } catch (e) {
+      console.log(e);
+    }
+
+  };
   useEffect(() => {
-    const getMovieList = async () => {
-      //READ DATA FROM DB
-      try {
-        const data = await getDocs(moviesCollectionRef);
-        const filteredData = data.docs.map((doc) => {
-          return ({ ...doc.data(), id: doc.id });
-        })
-        //SHOW THE MOVIE LIST
-        setMovieList(filteredData);
-
-        //console.log(filteredData); //gets you your filtered Data
-        //console.log(data); //gets you an object of all the confucing stuff related to data to asked for
-      } catch (e) {
-        console.log(e);
-      }
-
-    };
     getMovieList();
   }, []);
 
@@ -46,8 +46,13 @@ function App() {
         release: newRelease,
         hit: isHit
       })
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error);
+    }
+
+    finally {
+      getMovieList();
     }
   };
   //Problem arises when we want to see on the screen but it will only display in db so for that we'll do one thing in useEffect...
