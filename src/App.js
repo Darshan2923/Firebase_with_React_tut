@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Auth from './components/auth';
 // import Register from './components/Register';
-import { db, auth } from './config/firebase-config';
+import { db, auth, storage, bucket } from './config/firebase-config';
 import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { ref, uploadBytes } from 'firebase/storage';
 import Learning from './components/learning';
 
 function App() {
@@ -95,6 +96,17 @@ service cloud.firestore {
     getMovieList();
   };
 
+
+  // File upload states
+  const [fileUpload, setFileUpload] = useState("");
+
+  const sendFile = async () => {
+    if (!fileUpload) return;
+    const fileFolderRef = ref(bucket, `projectFiles/${fileUpload.name}`)
+    try { await uploadBytes(fileFolderRef, fileUpload) }
+    catch (e) { console.log(e); }
+  }
+
   return (
     <div className="appContainer">
       <h1>Firebase course</h1>
@@ -135,9 +147,17 @@ service cloud.firestore {
               <input type="text" placeholder='Change title...'
                 onChange={(e) => setUpdatedTitle(e.target.value)} />
               <button onClick={() => updateTitle(movie.id)}>Update Title</button>
-            </div>
+              <br /><br /><br /></div>
           );
         })}
+      </div>
+
+
+      {/* Button to have an option to upload your file onto the cloud
+      */}
+      <div>
+        <input type="file" onChange={(e) => setFileUpload(e.target.files[0])} />
+        <button onClick={sendFile}>Upload File</button>
       </div>
     </div>
   );

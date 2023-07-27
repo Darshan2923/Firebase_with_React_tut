@@ -51,7 +51,13 @@ It is a cloud storage bucket
 
 
 //////////////////////////////////////
-App.js to select a file and a button to upload it in the cloud
+App.js to select a file and a button to upload it in the cloud.
+
+
+making collections directly from here is difficult so we make a collection from the website and then we make a reference to that collection from here...
+
+
+To learn more about the management of files from bucket and showing that things one screen, will be done in another project...
 
 
 
